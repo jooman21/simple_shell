@@ -50,6 +50,9 @@ if (!error)
 free(hist_str);
 return (NULL);
 }
+
+
+
 _strcpy(error, name);
 _strcat(error, ": ");
 _strcat(error, hist_str);
