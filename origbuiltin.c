@@ -3,7 +3,6 @@ int (*get_builtin(char *command))(char **args, char **front);
 int shellby_exit(char **args, char **front);
 int shellby_cd(char **args, char __attribute__((__unused__)) **front);
 int shellby_help(char **args, char __attribute__((__unused__)) **front);
-
 /**
  * get_builtin - Matches a command with a corresponding
  *               shellby builtin function.
@@ -24,7 +23,6 @@ builtin_t funcs[] = {
 { NULL, NULL }
 };
 int i;
-
 for (i = 0; funcs[i].name; i++)
 {
 if (_strcmp(funcs[i].name, command) == 0)
@@ -32,7 +30,6 @@ break;
 }
 return (funcs[i].f);
 }
-
 /**
  * shellby_exit - Causes normal process termination
  *                for the shellby shell.
@@ -49,7 +46,6 @@ int shellby_exit(char **args, char **front)
 {
 int i, len_of_int = 10;
 unsigned int num = 0, max = 1 << (sizeof(int) * 8 - 1);
-
 if (args[0])
 {
 if (args[0][0] == '+')
@@ -77,7 +73,6 @@ free_env();
 free_alias_list(aliases);
 exit(num);
 }
-
 /**
  * shellby_cd - Changes the current directory of the shellby process.
  * @args: An array of arguments.
@@ -92,11 +87,9 @@ int shellby_cd(char **args, char __attribute__((__unused__)) **front)
 	char **dir_info, *new_line = "\n";
 	char *oldpwd = NULL, *pwd = NULL;
 	struct stat dir;
-
 	oldpwd = getcwd(oldpwd, 0);
 if (!oldpwd)
 return (-1);
-
 if (args[0])
 {
 if (*(args[0]) == '-' || _strcmp(args[0], "--") == 0)
@@ -130,20 +123,16 @@ else
 if (_getenv("HOME") != NULL)
 chdir(*(_getenv("HOME")) + 5);
 }
-
 pwd = getcwd(pwd, 0);
 if (!pwd)
 return (-1);
-
 dir_info = malloc(sizeof(char *) * 2);
 if (!dir_info)
 return (-1);
-
 dir_info[0] = "OLDPWD";
 dir_info[1] = oldpwd;
 if (shellby_setenv(dir_info, dir_info) == -1)
 return (-1);
-
 dir_info[0] = "PWD";
 dir_info[1] = pwd;
 if (shellby_setenv(dir_info, dir_info) == -1)
@@ -158,7 +147,6 @@ free(pwd);
 free(dir_info);
 return (0);
 }
-
 /**
  * shellby_help - Displays information about shellby builtin commands.
  * @args: An array of arguments.
@@ -187,6 +175,5 @@ else if (_strcmp(args[0], "help") == 0)
 help_help();
 else
 write(STDERR_FILENO, name, _strlen(name));
-
 return (0);
 }
