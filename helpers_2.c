@@ -1,9 +1,7 @@
 #include "shell.h"
-
 void handle_line(char **line, ssize_t read);
 ssize_t get_new_len(char *line);
 void logical_ops(char *line, ssize_t *new_len);
-
 /**
  * handle_line - Partitions a line read from standard input as needed.
  * @line: A pointer to a line read from standard input.
@@ -18,7 +16,6 @@ char *old_line, *new_line;
 char previous, current, next;
 size_t i, j;
 ssize_t new_len;
-
 new_len = get_new_len(*line);
 if (new_len == read - 1)
 return;
@@ -94,7 +91,6 @@ new_line[j] = '\0';
 free(*line);
 *line = new_line;
 }
-
 /**
  * get_new_len - Gets the new length of a line partitioned
  *               by ";", "||", "&&&", or "#".
@@ -104,13 +100,11 @@ free(*line);
  *
  * Description: Cuts short lines containing '#' comments with '\0'.
  */
-
 ssize_t get_new_len(char *line)
 {
 size_t i;
 ssize_t new_len = 0;
 char current, next;
-
 for (i = 0; line[i]; i++)
 {
 current = line[i];
@@ -164,11 +158,9 @@ return (new_len);
 void logical_ops(char *line, ssize_t *new_len)
 {
 char previous, current, next;
-
 previous = *(line - 1);
 current = *line;
 next = *(line + 1);
-
 if (current == '&')
 {
 if (next == '&' && previous != ' ')
